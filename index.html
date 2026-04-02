@@ -1,65 +1,614 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EdAvatar Studio | Crafting Digital Sculpture</title>
-    <style>
-        body { background-color: #0d0d0d; color: #e0e0e0; font-family: 'Segoe UI', sans-serif; margin: 0; text-align: center; }
-        header { padding: 60px 20px; background: radial-gradient(circle at center, #1a2a2a 0%, #0d0d0d 70%); }
-        .main-logo { width: 120px; filter: drop-shadow(0 0 15px #008080); margin-bottom: 20px; border-radius: 20px; }
-        h1 { font-size: 2.5rem; color: #00b3b3; text-transform: uppercase; letter-spacing: 2px; }
-        .container { max-width: 1000px; margin: auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; padding: 40px 20px; }
-        .app-card { background: #161616; border-radius: 25px; padding: 25px; border: 1px solid #222; box-shadow: 8px 8px 16px #050505, -4px -4px 12px #1a1a1a; transition: 0.3s; }
-        .app-card:hover { transform: translateY(-10px); border-color: #008080; }
-        .app-icon { width: 100px; height: 100px; border-radius: 22%; object-fit: cover; margin-bottom: 15px; }
-        .btn { display: inline-block; padding: 10px 20px; background: linear-gradient(145deg, #1a1a1a, #222); color: #00b3b3; text-decoration: none; border-radius: 10px; font-weight: bold; border: 1px solid #333; margin-top: 10px; }
-        .btn:hover { background: #008080; color: #fff; box-shadow: 0 0 15px #008080; }
-        footer { padding: 40px; color: #444; font-size: 0.8rem; border-top: 1px solid #1a1a1a; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EdAvatar Studio | Private Offline AI & Creative Tools</title>
+  <meta name="description" content="EdAvatar Studio by Nu — private offline AI and creative tools shaped by craftsmanship, independence, and real-world artistic practice." />
+  <style>
+    :root {
+      --bg: #0b0b0b;
+      --bg-soft: #121212;
+      --panel: #161616;
+      --panel-2: #1b1b1b;
+      --line: #252525;
+      --text: #e7e7e7;
+      --muted: #9da3a6;
+      --accent: #00b3b3;
+      --accent-soft: rgba(0, 179, 179, 0.18);
+      --shadow-dark: rgba(0, 0, 0, 0.45);
+      --shadow-accent: rgba(0, 179, 179, 0.22);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --max: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top, rgba(0, 179, 179, 0.08), transparent 30%),
+        linear-gradient(180deg, #0d0d0d 0%, #090909 100%);
+      color: var(--text);
+      font-family: "Segoe UI", Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .wrap {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(10px);
+      background: rgba(10, 10, 10, 0.72);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .topbar-inner {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 0 18px var(--shadow-accent);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .brand-text strong {
+      font-size: 0.98rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #dffefe;
+    }
+
+    .brand-text span {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      text-decoration: none;
+      font-size: 0.92rem;
+      color: var(--muted);
+      padding: 8px 12px;
+      border-radius: 999px;
+      transition: 0.25s ease;
+    }
+
+    .nav a:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .hero {
+      padding: 64px 0 44px;
+    }
+
+    .hero-box {
+      background:
+        radial-gradient(circle at center, rgba(0, 179, 179, 0.14), transparent 42%),
+        linear-gradient(180deg, #131717 0%, #0f0f0f 100%);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 34px;
+      padding: 48px 28px;
+      text-align: center;
+      box-shadow: 0 16px 40px var(--shadow-dark);
+    }
+
+    .hero-logo {
+      width: 126px;
+      height: 126px;
+      margin: 0 auto 20px;
+      border-radius: 28px;
+      object-fit: cover;
+      box-shadow:
+        0 0 26px rgba(0, 179, 179, 0.35),
+        0 18px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #9ff8f8;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      line-height: 1.08;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #ffffff;
+    }
+
+    .hero p {
+      max-width: 760px;
+      margin: 18px auto 0;
+      color: #bcc3c7;
+      font-size: 1.02rem;
+    }
+
+    .hero-actions {
+      margin-top: 26px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      border: 1px solid #2b2b2b;
+      transition: 0.25s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(145deg, #00a3a3, #007b7b);
+      color: #ffffff;
+      border-color: #0c8a8a;
+      box-shadow: 0 0 18px rgba(0, 179, 179, 0.18);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 24px rgba(0, 179, 179, 0.3);
+    }
+
+    .btn-secondary {
+      background: #171717;
+      color: #d7e8e8;
+    }
+
+    .btn-secondary:hover {
+      background: #202020;
+      color: #ffffff;
+    }
+
+    .section {
+      padding: 26px 0 10px;
+    }
+
+    .section-head {
+      margin-bottom: 18px;
+      text-align: center;
+    }
+
+    .section-head h2 {
+      margin: 0 0 8px;
+      font-size: 1.7rem;
+      color: #f5f5f5;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 22px;
+    }
+
+    .app-card {
+      background: linear-gradient(180deg, var(--panel) 0%, #111 100%);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      text-align: left;
+      box-shadow: 0 12px 30px var(--shadow-dark);
+      transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    .app-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(0, 179, 179, 0.45);
+      box-shadow:
+        0 18px 36px rgba(0, 0, 0, 0.42),
+        0 0 0 1px rgba(0, 179, 179, 0.06);
+    }
+
+    .app-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .app-icon {
+      width: 74px;
+      height: 74px;
+      border-radius: 20px;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .app-title-wrap h3 {
+      margin: 0 0 4px;
+      font-size: 1.15rem;
+      color: #fff;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .badge-live {
+      background: rgba(0, 179, 179, 0.16);
+      color: #8ff7f7;
+    }
+
+    .badge-soon {
+      background: rgba(255, 255, 255, 0.08);
+      color: #c7c7c7;
+    }
+
+    .app-card p {
+      margin: 0 0 14px;
+      color: #b7bdc2;
+      font-size: 0.96rem;
+    }
+
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .feature {
+      font-size: 0.76rem;
+      color: #cbd3d6;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #1d1d1d;
+      border: 1px solid #2a2a2a;
+    }
+
+    .app-actions {
+      margin-top: auto;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-card {
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+    }
+
+    .btn-disabled {
+      background: #121212;
+      color: #707070;
+      border-color: #232323;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .about-box,
+    .trust-box {
+      background: linear-gradient(180deg, #121212 0%, #101010 100%);
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      padding: 26px;
+      margin-top: 22px;
+      box-shadow: 0 10px 28px var(--shadow-dark);
+    }
+
+    .about-box p,
+    .trust-box p {
+      margin: 0;
+      color: #b7bdc2;
+    }
+
+    .trust-list {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .trust-list li {
+      background: #171717;
+      border: 1px solid #252525;
+      border-radius: 16px;
+      padding: 14px;
+      color: #cbd3d6;
+    }
+
+    footer {
+      padding: 44px 0 54px;
+      margin-top: 26px;
+    }
+
+    .footer-box {
+      border-top: 1px solid #1d1d1d;
+      padding-top: 26px;
+      text-align: center;
+      color: #7f868a;
+      font-size: 0.92rem;
+    }
+
+    .footer-motto {
+      color: #a8ffff;
+      letter-spacing: 0.16em;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .topbar-inner {
+        padding: 10px 0;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav {
+        width: 100%;
+      }
+
+      .hero-box {
+        padding: 38px 18px;
+      }
+
+      .app-top {
+        align-items: flex-start;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <header>
-        <img src="Ed Vision.jpeg" alt="EdAvatar Logo" class="main-logo">
-        <h1>EdAvatar Studio</h1>
-        <p>Artistic Sculptor, Texture Carver & Mobile App Creator.<br>Building the Ed Series — private offline AI and creative tools shaped by craftsmanship, independence, and real-world artistic practice.</p>
-    </header>
-
-    <div class="container">
-        <div class="app-card">
-            <img src="Ed_Reader_icon.jpeg" alt="Ed_Reader" class="app-icon">
-            <h3>Ed_Reader</h3>
-            <p>Minimalist PDF reader. Ad-free, fast, and focus-driven.</p>
-            <a href="edreader.apk" class="btn">Download APK</a>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a href="#" class="brand">
+        <img src="Ed Vision.jpeg" alt="EdAvatar Studio Logo" class="brand-mark" />
+        <div class="brand-text">
+          <strong>EdAvatar Studio</strong>
+          <span>Offline AI & Creative Tools</span>
         </div>
+      </a>
 
-        <div class="app-card">
-            <img src="NUAMP.jpeg" alt="NuAmp" class="app-icon">
-            <h3>NuAmp Classic</h3>
-            <p>Vintage-inspired music player with a nostalgic feel for everyday listening.</p>
-            <a href="nuamponline" class="btn">Download APK</a>
-        </div>
-
-        <div class="app-card">
-            <img src="Ed Prompt Tool.jpeg" alt="EdPrompt" class="app-icon">
-            <h3>EdPrompt Tool</h3>
-            <p>Creative prompt tool designed to help artists build clearer, stronger image prompts.</p>
-            <a href="#" class="btn">Coming Soon</a>
-        </div>
-
-        <div class="app-card">
-            <img src="Ed Half-Tone.jpeg" alt="EdHalfTone" class="app-icon">
-            <h3>EdHalfToneCamera</h3>
-            <p>Experimental black-and-white halftone camera with live preview, adjustable dot size, and contrast control.</p>
-            <a href="edhalftone.apk" class="btn">Download APK</a>
-        </div>
+      <nav class="nav">
+        <a href="#apps">Apps</a>
+        <a href="#about">About</a>
+        <a href="#trust">Why Download Here</a>
+      </nav>
     </div>
+  </div>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="hero-box">
+        <img src="Ed Vision.jpeg" alt="EdAvatar Studio Logo" class="hero-logo" />
+        <div class="eyebrow">Private • Offline • Creative</div>
+        <h1>EdAvatar Studio</h1>
+        <p>
+          Crafted by Nu — artistic sculptor, texture carver, and mobile app creator.
+          Building the Ed Series: private offline AI and creative tools shaped by craftsmanship,
+          independence, and real-world artistic practice.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#apps" class="btn btn-primary">Explore Apps</a>
+          <a href="#about" class="btn btn-secondary">About the Studio</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="apps">
+      <div class="section-head">
+        <h2>Apps</h2>
+        <p>Small tools, focused purpose, artist-built workflow.</p>
+      </div>
+
+      <div class="grid">
+        <article class="app-card">
+          <div class="app-top">
+            <img src="Ed_Reader_icon.jpeg" alt="Ed Reader icon" class="app-icon" />
+            <div class="app-title-wrap">
+              <h3>Ed Reader</h3>
+              <span class="badge badge-live">Available</span>
+            </div>
+          </div>
+          <p>
+            Minimalist PDF reader built for focus. Clean, fast, ad-free, and made for simple everyday reading.
+          </p>
+          <div class="features">
+            <span class="feature">PDF Reader</span>
+            <span class="feature">Ad-Free</span>
+            <span class="feature">Focus-Driven</span>
+          </div>
+          <div class="app-actions">
+            <a href="edreader.apk" class="btn btn-card btn-primary">Download APK</a>
+          </div>
+        </article>
+
+        <article class="app-card">
+          <div class="app-top">
+            <img src="NUAMP.jpeg" alt="NuAmp Classic icon" class="app-icon" />
+            <div class="app-title-wrap">
+              <h3>NuAmp Classic</h3>
+              <span class="badge badge-live">Available</span>
+            </div>
+          </div>
+          <p>
+            A vintage-inspired music player with a nostalgic mood, built for personal listening without distraction.
+          </p>
+          <div class="features">
+            <span class="feature">Music Player</span>
+            <span class="feature">Retro Feel</span>
+            <span class="feature">Personal Use</span>
+          </div>
+          <div class="app-actions">
+            <a href="nuamponline.apk" class="btn btn-card btn-primary">Download APK</a>
+          </div>
+        </article>
+
+        <article class="app-card">
+          <div class="app-top">
+            <img src="Ed Prompt Tool.jpeg" alt="Ed Prompt Tool icon" class="app-icon" />
+            <div class="app-title-wrap">
+              <h3>Ed Prompt Tool</h3>
+              <span class="badge badge-soon">Coming Soon</span>
+            </div>
+          </div>
+          <p>
+            A creative prompt-building tool designed to help artists craft clearer, stronger image prompts with direction and structure.
+          </p>
+          <div class="features">
+            <span class="feature">Prompt Builder</span>
+            <span class="feature">Artist Tool</span>
+            <span class="feature">Image Workflow</span>
+          </div>
+          <div class="app-actions">
+            <span class="btn btn-card btn-disabled">Coming Soon</span>
+          </div>
+        </article>
+
+        <article class="app-card">
+          <div class="app-top">
+            <img src="Ed Half-Tone.jpeg" alt="Ed HalfTone Camera icon" class="app-icon" />
+            <div class="app-title-wrap">
+              <h3>EdHalfToneCamera</h3>
+              <span class="badge badge-live">Available</span>
+            </div>
+          </div>
+          <p>
+            Experimental black-and-white halftone camera with live preview, adjustable dot size, and contrast control.
+          </p>
+          <div class="features">
+            <span class="feature">Live Camera</span>
+            <span class="feature">B/W Halftone</span>
+            <span class="feature">Experimental</span>
+          </div>
+          <div class="app-actions">
+            <a href="edhalftone.apk" class="btn btn-card btn-primary">Download APK</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="section-head">
+        <h2>About</h2>
+      </div>
+
+      <div class="about-box">
+        <p>
+          EdAvatar Studio is an independent creative software space built by Nu.
+          The goal is simple: create focused tools that respect privacy, reduce distraction,
+          and support real artistic work. These apps are shaped by hands-on experience in art,
+          sculpture, texture work, and practical daily use — not by trend-chasing.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="trust">
+      <div class="section-head">
+        <h2>Why Download Here</h2>
+        <p>Simple, direct, and built with intention.</p>
+      </div>
+
+      <div class="trust-box">
+        <p>
+          This site is the direct home of EdAvatar Studio. The goal is to distribute focused tools
+          without clutter, unnecessary tracking, or noisy storefront presentation.
+        </p>
+
+        <ul class="trust-list">
+          <li><strong>Independent Release</strong><br />Direct distribution from the creator.</li>
+          <li><strong>Privacy Mindset</strong><br />Built around focus, control, and minimal noise.</li>
+          <li><strong>Artist-Built Tools</strong><br />Designed from real creative workflow needs.</li>
+          <li><strong>Clear Identity</strong><br />Each app has a simple role and practical purpose.</li>
+        </ul>
+      </div>
+    </section>
 
     <footer>
-        <p>INDEPENDENCE | PRIVACY | CRAFTSMANSHIP</p>
-        <p>&copy; 2026 EdAvatar Studio by Nu. Tools shaped by an artist’s eye, built for focus, privacy, and creative freedom.</p>
+      <div class="footer-box">
+        <div class="footer-motto">Independence • Privacy • Craftsmanship</div>
+        <div>&copy; 2026 EdAvatar Studio by Nu</div>
+        <div>Tools shaped by an artist’s eye, built for focus, privacy, and creative freedom.</div>
+      </div>
     </footer>
+  </main>
 
 </body>
 </html>
